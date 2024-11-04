@@ -1,0 +1,403 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Requests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        /* Style for the header section */
+        .header_section {
+            background-color: rgb(239, 207, 89);;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand img {
+            max-width: 50px;
+        }
+
+        /* Style for the request cards */
+        .request-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .request-card h3 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .request-card p {
+            font-size: 16px;
+        }
+
+        .request-card-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .approve-button,
+        .disapprove-button {
+            background-color: #e91e63;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px; /* Adjust the value to control the level of rounding */
+         padding: 5px 10px; /* Add padding to make the button larger and more rounded */
+        color: #fff;
+        }
+
+        
+        
+        .detail-button {
+        background-color: rgb(84, 124, 246);
+        border-radius: 10px; /* Adjust the value to control the level of rounding */
+        padding: 5px 10px; /* Add padding to make the button larger and more rounded */
+        color: #fff; /* Text color for better visibility on the background */
+                    }
+
+        /* Style for the breadcrumb navigation */
+        .breadcrumb {
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+        .instagram-button {
+            background: transparent;
+            padding: 5px 8px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            margin-right: 10px;
+            border: none; /* Set the border to none */
+        }
+        
+        
+        .instagram-button:hover {
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+        }
+        .navbar-nav .nav-link {
+          color: #fff; /* Set the text color of nav items to white */
+        }
+        
+        .navbar-nav .nav-link:hover {
+          color: #ffffff; /* Change text color on hover if desired */
+        }
+       
+            .request-card {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                margin: 20px;
+                padding: 20px;
+            }
+        
+            .request-card h3 {
+                font-size: 24px;
+                font-weight: bold;
+            }
+        
+            .request-details {
+                display: flex;
+                justify-content: space-between;
+            }
+        
+            .customer-details, .product-details, .measurement-details {
+                width: 30%;
+            }
+        
+            .customer-details h4, .product-details h4, .measurement-details h4 {
+                font-size: 18px;
+                margin-top: 10px;
+            }
+        
+            .request-card-buttons {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+        
+            .approve-button, .disapprove-button {
+                background-color: #e91e63;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-size: 18px;
+                cursor: pointer;
+            }
+        
+            .disapprove-button {
+                background-color: #ff0000;
+            }
+            .request-details {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .product-details {
+                width: 70%; /* Adjusted width for text details */
+            }
+            
+            .product-image {
+                width: 15%; /* Set width for image */
+                text-align: right; /* Align image to the right */
+            }
+            
+            .product-image img {
+                max-width: 100%; /* Ensure the image fits within its container */
+                height: auto; /* Maintain aspect ratio */
+                border-radius: 8px; /* Optional: Add border-radius for a rounded corner effect */
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+            }
+            
+            .request-card {
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+                padding: 10px;
+                border-radius: 5px;
+                margin: 20px;
+            }
+            
+            
+            .measurement-details, .design-details {
+                margin-top: 20px;
+            }
+            
+            h4 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            p {
+                margin: 10px 0;
+            }
+            
+            strong {
+                font-weight: bold;
+            }
+            
+            .section-heading {
+                font-size: 20px;
+                font-weight: bold;
+                color: #0070c9; /* Change to the color of your choice, e.g., blue (#0070c9) */
+                margin-bottom: 10px;
+                border-bottom: 2px solid #e0e0e0;
+                padding-bottom: 5px;
+                display: inline-block;/* Display the heading inline with the underline */
+            }
+            .approved-text {
+                color: green; /* You can change the color to your preference */
+                font-weight: bold;
+                /* Add other styles like font-size, background-color, etc. as needed */
+            }
+            .pending-text {
+                color: orange; /* You can change the color to your preference */
+                font-weight: bold;
+                /* Add other styles like font-size, background-color, etc. as needed */
+            }
+    </style>
+</head>
+<body  style="background-color: rgba(190, 208, 243, 0.765)">
+    <header class="header_section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+                <a class="navbar-brand">
+                    <img src="{% static 'images/logo1.jpg' %}" alt />
+                    <span>OUTFITTER</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <button class="instagram-button">
+                                <a href="{% url 'add_garment' %}" class="nav-link">Add Garment</a>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="instagram-button">
+                                <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="instagram-button">
+                                <a href="{% url 'loggout' %}" class="nav-link">Logout</a>
+                            </button>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <br><br>
+    <div class="container py-5">
+        <nav aria-label="breadcrumb" class="breadcrumb rounded-3 mb-4">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url "t_index" %}">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Customer Requests</li>
+            </ol>
+        </nav>
+        <section style="background-color: rgba(190, 208, 243, 0.765)">
+            {% for request in requests %}
+            <div class="request-card">
+                <h3>{{ request.customer.first_name }}'s Request</h3>
+                <div class="request-details">
+                    <div class="product-details">
+                        <p>Product: {{ request.product.pro_category }}</p>
+                        <p>Order id: {{ request.id }}</p>
+                        <p>Order Date & Time: {{ request.order_date }}</p>
+                        <p>Measurement Details:
+                            <button class="btn btn-primary details-button" data-bs-toggle="modal" data-bs-target="#measurement_details" data-request-id="{{ request.id }}">Details</button>
+                        </p>
+                        <p>Price: Rs.{{ request.product.price }}/-</p>
+                        {% if request.is_active %}
+                        <p class="product-status approved-status">Status: <span class="approved-text">Approved</span></p>
+
+                        {% else %}
+                        <p class="product-status pending-status">Status: <span class="pending-text">Pending</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="product-image" id="test_img">
+                        <img src="{{ request.product.image.url }}" alt="Product Image">
+                    </div>
+                </div>
+                <div class="request-card-buttons">
+                    <form method="post" action="{% url 'order_request' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_id" value="{{ request.id }}">
+                        {% if request.is_active %}
+                        <button type="submit" class="approved-button" disabled>Approved</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{% url 'messages_page' %}" class="btn btn-primary" target="_blank">Connect with them</a>
+
+                        {% else %}
+                        <button type="submit" class="approve-button">Approve</button>
+                        {% endif %}
+                    </form>
+                    <!-- Disapprove button omitted for simplicity -->
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        
+
+
+<div class="modal fade" id="measurement_details" tabindex="-1" aria-labelledby="measurement_detailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <center>
+                    <h5 class="modal-title" id="measurement_detailsLabel">Measurement Details</h5>
+                </center>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <section>
+                    <form method="POST" enctype="multipart/form-data" action="" id="measurement-form">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="request-card">
+                                <div class="request-details">
+                                    <div class="measurement-details">
+                                        <h4 class="section-heading">Measurement Details</h4>
+                                        <p><strong>Fabric Type:</strong> <span id="fabric-type"></span></p>
+                                        <p><strong>Color:</strong> <span id="color"></span></p>
+                                        <p><strong>Bust:</strong> <span id="bust"></span></p>
+                                        <p><strong>Waist:</strong> <span id="waist"></span></p>
+                                        <p><strong>Hips:</strong> <span id="hips"></span></p>
+                                        <p><strong>Length:</strong> <span id="length"></span></p>
+                                        <p><strong>Shoulder Width:</strong> <span id="shoulderWidth"></span></p>
+                                        <p><strong>Sleeve Length:</strong> <span id="sleeveLength"></span></p>
+                                        <!-- Add placeholders for other measurement details as needed -->
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="request-card">
+                                <div class="request-details">
+                                    <div class="design-details">
+                                        <h4 class="section-heading">Design Selection Details</h4>
+                                        <p><strong>Style Design:</strong> <span id="style-design"></span></p>
+                                        <p><strong>Neck Design:</strong> <span id="neck-design"></span></p>
+                                        <p><strong>Back Design:</strong> <span id="back-design"></span></p>
+                                        <p><strong>Sleeve Design:</strong> <span id="sleev-design"></span></p>
+                                        <p><strong>Lining Design:</strong> <span id="lining-design"></span></p>
+                                        <p><strong>Work Design:</strong> <span id="work-design"></span></p>
+                                        <p><strong>Additional Information:</strong> <span id="additional-info"></span></p>
+                                        <!-- Add placeholders for other design details as needed -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                
+                
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $(".details-button").click(function () {
+                var requestId = $(this).data("request-id");
+                $.ajax({
+                    url: "{% url 'fetch_measurement_details' %}",
+                    data: { request_id: requestId },
+                    dataType: "json",
+                    success: function (data) {
+                        // Populate Measurement Details
+                        $("#fabric-type").text(data.fabric_type);
+                        $("#color").text(data.color);
+                        $("#bust").text(data.bust);
+                        $("#waist").text(data.waist);
+                        $("#hips").text(data.hips);
+                        $("#length").text(data.length);
+                        $("#shoulderWidth").text(data.shoulder_width);
+                        $("#sleeveLength").text(data.sleeve_length);
+    
+                        // Populate Design Selection Details
+                        $("#style-design").text(data.style_design);
+                        $("#neck-design").text(data.neck_design);
+                        $("#back-design").text(data.back_design);
+                        $("#sleev-design").text(data.sleev_design);
+                        $("#lining-design").text(data.lining_design);
+                        $("#work-design").text(data.work_design);
+                        $("#additional-info").text(data.additional_info);
+    
+                        // Add code to populate other details in the modal
+                    }
+                });
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>

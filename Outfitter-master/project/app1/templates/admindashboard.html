@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content>
+        <meta name="author" content>
+
+        <title>Dashboard</title>
+        <style>
+    /* Basic styles for the table */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #9b95f3;
+}
+
+/* Style for "Yes" and "No" values in Is Customer and Is Tailor columns */
+.user-table td:nth-child(5),
+.user-table td:nth-child(6) {
+    text-transform: capitalize; /* Capitalize "Yes" and "No" */
+    color: green; /* Green for "Yes" */
+}
+
+.user-table td:nth-child(6) {
+    color: red; /* Red for "No" */
+}
+
+    /* Style the logout button as a box */
+    .logout-button {
+        background-color: #ff5252; /* Your desired background color */
+        color: #fff; /* Text color */
+        border: none; /* Remove the default button border */
+        padding: 10px 20px; /* Add padding to increase the button size */
+        border-radius: 5px; /* Add rounded corners */
+        cursor: pointer; /* Show a pointer cursor on hover */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        transition: background-color 0.3s ease; /* Smooth background color transition */
+    }
+
+    /* Change button color on hover */
+    .logout-button:hover {
+        background-color: #ff0000; /* New background color on hover */
+    }
+
+
+</style>
+        <!-- Custom fonts for this template-->
+        <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}"
+            rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="{% static "css/sb-admin-2.min.css" %}" rel="stylesheet">
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+    </head>
+
+    <body id="page-top">
+
+        {% if not user.is_authenticated %}
+        <script>
+        // JavaScript code to refresh the page after a delay
+        setTimeout(function () {
+            location.reload();
+        }, 1000); // Refresh after 1 second (adjust the delay as needed)
+    </script>
+        {% endif %}
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul
+                class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+                id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <!-- Sidebar - Brand -->
+<a
+class="sidebar-brand d-flex align-items-center justify-content-center"
+href="{% url "admindashboard" %}">
+<div class="sidebar-brand-icon rotate-n-15">
+    <i class="fas fa-laugh-wink"></i>
+</div>
+<div class="sidebar-brand-text mx-3">OUTFITTER</div>
+</a>
+
+<!-- Divider -->
+<hr class="sidebar-divider my-0">
+
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Heading -->
+<div class="sidebar-heading">
+Interface
+</div>
+
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link" href="#customers-section"> <!-- Update the href attribute -->
+        <i class="fas fa-fw fa-table"></i>
+        <span>Show Customer</span>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="#tailors-section"> <!-- Update the href attribute -->
+        <i class="fas fa-fw fa-table"></i>
+        <span>Show Tailors</span>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'c_add_garment' %}"> <!-- Update the href attribute -->
+        <i class="fas fa-fw fa-table"></i>
+        <span id="add_gar1">Celebrity Couture</span>
+    </a>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Heading -->
+<div class="sidebar-heading">
+Addons
+</div>
+
+<!-- Nav Item - Pages Collapse Menu -->
+
+<!-- Nav Item - Charts -->
+
+<!-- Nav Item - Tables -->
+
+<!-- Divider -->
+<hr class="sidebar-divider d-none d-md-block">
+
+                <!-- Nav Item - Pages Collapse Menu -->
+
+                <!-- Divider -->
+
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <!-- Sidebar Toggler (Sidebar) -->
+
+            </ul>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <nav
+                        class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop"
+                            class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <!-- Topbar Search -->
+                        <form
+                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text"
+                                    class="form-control bg-light border-0 small"
+                                    placeholder="Search for..."
+                                    aria-label="Search"
+                                    aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary"
+                                        type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+
+                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+
+                            {% if user.is_authenticated %}
+                            <li class="nav-item">
+                              <a class="nav-link"> Welcome, {{ user.username }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'messages_page' %}" class="nav-link">Support</a>
+                              </li>
+                            </li>
+                            <li class="nav-item">
+                              <a href="{% url 'loggout' %}" class="nav-link">Logout</a>
+                            </li>
+                          </li>
+
+                            {% endif %}
+
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <!-- Nav Item - User Information -->
+
+                        </ul>
+
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div id="content-container" class="container-fluid">
+
+                        <li>
+                            Registered Users
+
+                        </li>
+
+                        <section class="user_details" id="tailors-section"> <!-- Add id attribute -->
+                            <p><h4>Registered Tailors</h4></p>
+                
+                            <table class="tailor-table user-table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tailor in tailors %}
+                                    <tr>
+                                        <td>{{ tailor.username }}</td>
+                                        <td>{{ tailor.email }}</td>
+                                        <td>{{ tailor.first_name }}</td>
+                                        <td>{{ tailor.last_name }}</td>
+                                        <td>
+                                            <a href="#"
+                                                class="status-toggle"
+                                                data-user-id="{{ tailor.id }}"
+                                                data-status="{% if tailor.is_active %}active{% else %}inactive{% endif %}">
+                                                {% if tailor.is_active %}
+                                                <button class="btn btn-danger btn-sm logout-button">Active</button>
+                                                {% else %}
+                                                <button class="btn btn-danger btn-sm logout-button">Inactive</button>
+                                                {% endif %}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </section>
+                        <section class="user_details" id="customers-section"> <!-- Add id attribute -->
+                            <p><h4>Registered Customers</h4></p>
+                            <table class="customer-table user-table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for customer in customers %}
+                                    <tr>
+                                        <td>{{ customer.username }}</td>
+                                        <td>{{ customer.email }}</td>
+                                        <td>{{ customer.first_name }}</td>
+                                        <td>{{ customer.last_name }}</td>
+                                        <td>
+                                            <a href="#"
+                                                class="status-toggle"
+                                                data-user-id="{{ customer.id }}"
+                                                data-status="{% if customer.is_active %}active{% else %}inactive{% endif %}">
+                                                {% if customer.is_active %}
+                                                <button class="btn btn-danger btn-sm logout-button">Inactive</button>
+                                                {% else %}
+                                                <button class="btn btn-danger btn-sm logout-button">Active</button>
+                                                {% endif %}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+
+                    <!-- /.container-fluid -->
+
+                </div>
+                
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                {% comment %} <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2021</span>
+                        </div>
+                    </div>
+                </footer> {% endcomment %}
+                <!-- End of Footer -->
+
+            </div>
+            
+            <!-- End of Content Wrapper -->
+
+        </div>
+    <div>
+       
+        
+        
+    </div>
+        <script>
+              // JavaScript code to handle status toggling
+            document.querySelectorAll('.status-toggle').forEach(function (element) {
+            element.addEventListener('click', function (event) {
+                event.preventDefault();
+                const userId = element.getAttribute('data-user-id');
+                const currentStatus = element.getAttribute('data-status');
+                
+                // Send an AJAX request to toggle the status in the backend
+                fetch(`/toggle_user_status/${userId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}', // Include the CSRF token
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the status in the UI
+                    if (data.status === 'active') {
+                        element.innerHTML = 'Active';
+                    } else {
+                        element.innerHTML = 'Inactive';
+                    }
+                    element.setAttribute('data-status', data.status);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+               });
+            });
+        });
+    </script>
+   
+    
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    </body>
+
+</html>

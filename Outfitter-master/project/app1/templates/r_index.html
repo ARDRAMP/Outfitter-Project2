@@ -1,0 +1,524 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Outfitter</title>
+	<link rel="icon" href="{% static 'cotoure/img/Fevicon.png' %}" type="image/png">
+  <link rel="stylesheet" href="{% static 'cotoure/vendors/bootstrap/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'cotoure/vendors/fontawesome/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'cotoure/vendors/themify-icons/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'cotoure/vendors/nice-select/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'cotoure/vendors/owl-carousel/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" href="{% static 'cotoure/vendors/owl-carousel/owl.carousel.min.css' %}">
+
+<style>
+  .section-intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-intro p {
+    font-size: 18px;
+    color: #888;
+}
+
+.section-intro h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.section-intro select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.section-intro button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.section-intro button:hover {
+    background-color: #555;
+}
+.model-selection {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.model-option {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 10px;
+  transition: border-color 0.3s;
+}
+
+.model-option img {
+  display: block;
+  width: 100px; /* Adjust the size of the image */
+  height: 100px; /* Adjust the size of the image */
+  border-radius: 50%; /* Make the image oval */
+  transition: transform 0.3s;
+}
+
+.model-option:hover {
+  border-color: #333; /* Change border color on hover */
+}
+
+.model-option:hover img {
+  transform: scale(1.1); /* Scale the image on hover */
+}
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* Adjust as per your design */
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 15px; /* Adjust the right padding to make space for the icon and button */
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Rounded corners */
+  font-size: 16px; /* Adjust as needed */
+}
+
+.icon-label, .search-button {
+  position: absolute;
+  right: 40px; /* Adjust to position the icon correctly */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.icon-label i, .search-button i {
+  font-size: 20px; /* Adjust the size of the icon */
+  color: #555; /* Adjust the color as needed */
+}
+
+.search-button {
+  right: 10px; /* Position the search button */
+}
+
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="{% static 'cotoure/css/style.css' %}">
+</head>
+<body>
+  <!--================ Start Header Menu Area =================-->
+	<header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand logo_h" href="r_index.html"><img src="{% static 'cotoure/img/logo.png' %}" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+              <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+             <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Shop</a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="{% url 'cart' %}">Shopping Cart</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'c_order_customer' %}">Orders</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'predict_size' %}">Size finder</a></li>
+
+                </ul>
+							</li> 
+              {% comment %} <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Blog</a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                  <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                </ul>
+							</li> {% endcomment %}
+							{% comment %} <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Pages</a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                  <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li>
+                </ul>
+              </li> {% endcomment %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+
+              <li class="nav-item"><a class="nav-link" href="{% url 'messages_page' %}">Contact</a></li>
+              {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'upload_and_recommend' %}">Search</a></li> {% endcomment %}
+              <form action="{% url 'upload_and_recommend' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="search-container">
+                  <br>
+                  <input type="text" class="search-input" placeholder="Visual search" readonly>
+                  <label for="imageUpload" class="icon-label">
+                    <br>
+                        <i class="fa fa-camera"></i>
+                        <input type="file" id="imageUpload" name="image" accept="image/*" style="display: none;">&nbsp;&nbsp;
+                    </label>
+                    <button type="submit" class="search-button"><br><i class="fa fa-search"></i></button>
+                </div>
+                
+            </form>
+            </ul>
+
+            <ul class="nav-shop">
+              {% comment %} <li class="nav-item"><button><i class="ti-search"></i></button></li>
+              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li> {% endcomment %}
+              <li class="nav-item"><a href="{% url 'loggout' %}" class="nav-link">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+	<!--================ End Header Menu Area =================-->
+
+  <main class="site-main">
+    
+    <!--================ Hero banner start =================-->
+    <section class="hero-banner">
+      <div class="container">
+        <div class="row no-gutters align-items-center pt-60px">
+          <div class="col-5 d-none d-sm-block">
+            <div class="hero-banner__img">
+              <img class="img-fluid" src="{% static 'cotoure/img/home/hero-banner.png' %}" alt="">
+            </div>
+          </div>
+          <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
+            <div class="hero-banner__content">
+              {% comment %} <h4>Shop is fun</h4> {% endcomment %}
+              <h1> Outfitting Your Dreams</h1>
+              <p>Us which over of signs divide dominion deep fill bring they're meat beho upon own earth without morning over third. Their male dry. They are great appear whose land fly grass.</p>
+              <a class="button button-hero" href="#allproducts">Browse Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================ Hero banner start =================-->
+
+    <!--================ Hero Carousel start =================-->
+    <section class="section-margin mt-0" id="allproducts">
+      <div class="owl-carousel owl-theme hero-carousel">
+        <div class="hero-carousel__slide">
+          <img src="{% static 'cotoure/img/home/hero-slide1.jpg' %}" alt="" class="img-fluid same-size-img">
+          <a href="#lehangasSection" class="hero-carousel__slideOverlay" >
+            <h3>Lehanga</h3>
+            <p>Accessories Item</p>
+          </a>
+        </div>
+        <div class="hero-carousel__slide">
+          <img src="{% static 'cotoure/img/home/hero-slide2.png' %}" alt="" class="img-fluid same-size-img">
+          <a href="#gownsSection" class="hero-carousel__slideOverlay">
+            <h3>Gown</h3>
+            <p>Accessories Item</p>
+          </a>
+        </div>
+        <div class="hero-carousel__slide">
+          <img src="{% static 'cotoure/img/home/hero-slide3.jpg' %}" alt="" class="img-fluid same-size-img">
+          <a href="#anarkaliSection" class="hero-carousel__slideOverlay">
+            <h3>Anarkali Suit</h3>
+            <p>Accessories Item</p>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!--================ Hero Carousel end =================-->
+
+    <!-- ================ trending product section start ================= --> 
+    
+        <!-- ================ lehanga  section  ================= -->  
+
+      {% if lehangas %}
+    <section id="lehangasSection" class="section-margin calc-60px">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>Popular Item in the market</p>
+                <h2>Trending <span class="section-intro__style">Lehangas</span></h2>
+            </div>
+            <div class="owl-carousel owl-theme" id="lehangasCarousel">
+              {% for product in lehangas %}
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid same-size-img2" src="{{ product.image.url }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            {% comment %} <li><button><i class="ti-search"></i></button></li> {% endcomment %}
+                            <li><button><a href="{% url 'product_details' product.id %}"><i class="ti-shopping-cart"></i></a></button></li>
+                            {% comment %} <li><button><i class="ti-heart"></i></button></li> {% endcomment %}
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ product.c_category }}</p>
+                        <h4 class="card-product__title"><a href="#">{{ product.description }}</a></h4>
+                        <p class="card-product__price">₹{{ product.price }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!-- ================ gown section start ================= -->  
+    {% if gowns %}
+    <section id="gownsSection" class="section-margin calc-60px">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>Popular Item in the market</p>
+                <h2>Trending <span class="section-intro__style">Gowns</span></h2>
+            </div>
+            <div class="owl-carousel owl-theme" id="gownsCarousel">
+              {% for product in gowns %}
+                <div class="card text-center card-product">
+                    <div class="card-product__img">
+                        <img class="img-fluid same-size-img2" src="{{ product.image.url }}" alt="">
+                        <ul class="card-product__imgOverlay">
+                            {% comment %} <li><button><i class="ti-search"></i></button></li> {% endcomment %}
+                            <li><button><a href="{% url 'product_details' product.id %}"><i class="ti-shopping-cart"></i></a></button></li>
+                            {% comment %} <li><button><i class="ti-heart"></i></button></li> {% endcomment %}
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ product.c_category }}</p>
+                        <h4 class="card-product__title"><a href="#">{{ product.description }}</a></h4>
+                        <p class="card-product__price">₹{{ product.price }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+        <!-- ================ anarkali_suits section start ================= -->  
+        {% if anarkali_suits %}
+        <section id="anarkaliSection" class="section-margin calc-60px">
+            <div class="container">
+                <div class="section-intro pb-60px">
+                    <p>Popular Item in the market</p>
+                    <h2>Trending <span class="section-intro__style">Anarkali Suits</span></h2>
+                </div>
+                <div class="owl-carousel owl-theme" id="anarkaliSuitsCarousel">
+                  {% for product in anarkali_suits %}
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="img-fluid same-size-img2" src="{{ product.image.url }}" alt="">
+                            <ul class="card-product__imgOverlay">
+                                {% comment %} <li><button><i class="ti-search"></i></button></li> {% endcomment %}
+                                <li><button><a href="{% url 'product_details' product.id %}"><i class="ti-shopping-cart"></i></a></button></li>
+                                {% comment %} <li><button><i class="ti-heart"></i></button></li> {% endcomment %}
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ product.c_category }}</p>
+                            <h4 class="card-product__title"><a href="#">{{ product.description }}</a></h4>
+                            <p class="card-product__price">₹{{ product.price }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        
+
+
+<!-- Repeat similar sections for Anarkali Suits and Gowns -->
+
+    <!-- ================ offer section start ================= --> 
+    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5">
+            <div class="offer__content text-center">
+              <h3>Customize Here</h3>
+              <h4>Explore our range of custom-tailored outfits for every occasion</h4>
+              {% comment %} <p>Him she'd let them sixth saw light</p> {% endcomment %}
+              <a class="button button--active mt-3 mt-xl-4" href="{% url 'productview' %}">Shop Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================ offer section end ================= --> 
+<section class="section-margin calc-60px">
+      <div class="container">
+          <p>Popular Item in the market</p>
+          <h2>Products by Model</h2>
+          <div class="d-flex justify-content-center">
+              <div class="model-selection">
+                  <div class="model-option" data-model="Alia Bhatt">
+                      <img src="{% static 'cotoure/img/models/alia_bhatt.png' %}" alt="Alia Bhatt">
+                  </div>
+                  <div class="model-option" data-model="Deepika Padukone">
+                      <img src="{% static 'cotoure/img/models/deepika_padukone.jpg' %}" alt="Deepika Padukone">
+                  </div>
+                  <div class="model-option" data-model="Priyanka Chopra">
+                      <img src="{% static 'cotoure/img/models/priyanka_chopra.png' %}" alt="Priyanka Chopra">
+                  </div>
+              </div>
+          </div>
+  
+          <div class="row" id="product-display">
+              <!-- Products will be dynamically inserted here -->
+          </div>
+          <script>
+            $(document).ready(function() {
+                  $('.model-option').click(function() {
+                    var modelName = $(this).data('model');
+                        // Make AJAX request
+                        $.ajax({
+                            url: '/get_products/',  // URL to your Django view
+                            method: 'GET',
+                            data: {
+                                model: modelName
+                            },
+                            success: function(response) {
+                              var productsHtml = '';
+                              response.products.forEach(function(product) {
+                                  if (product.image) {  // Check if image is not None
+                                      productsHtml += `
+                                          <div class="col-md-6 col-lg-4 col-xl-3">
+                                              <div class="card text-center card-product">
+                                                  <div class="card-product__img">
+                                                      <img class="img-fluid same-size-img" style="width: 100%; height: 300px; object-fit: cover;" src="${product.image.startsWith('/media/') ? product.image : '/media/' + product.image}" alt="${product.description}">
+                                                      {% comment %} <ul class="card-product__imgOverlay">
+                                                          <li><button><i class="ti-search"></i></button></li>
+                                                          <li><button><i class="ti-shopping-cart"></i></button></li>
+                                                          <li><button><i class="ti-heart"></i></button></li>
+                                                      </ul> {% endcomment %}
+                                                  </div>
+                                                  <div class="card-body">
+                                                      <h4 class="card-product__title"><a href="#allproducts">${product.description}</a></h4>
+                                                      <p class="card-product__price">₹${product.price}</p>
+                                                  </div>
+                                              </div>
+                                          </div>`;
+                                  }
+                              });
+                              $('#product-display').html(productsHtml);
+                          },
+                    
+                          error: function(xhr, status, error) {
+                              console.error(error);
+                          }
+                      });
+                });
+              });
+          
+          </script>
+
+</div>
+</section>
+  </main>
+
+
+  <!--================ Start footer Area  =================-->	
+	<footer class="footer">
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>
+								To provide a seamless and personalized tailoring experience, empowering individuals to express their unique style through perfectly crafted garments, delivered with exceptional quality and service.
+							</p>
+							<p>
+                To be the leading online destination for tailored clothing, known for our commitment to quality, innovation, and personalized service, setting the standard for modern tailoring in the digital age.							</p>
+						</div>
+					</div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Head Office
+								</p>
+								<p>123, Main Street</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Phone Number
+								</p>
+								<p>
+									+123 xxxxxx <br>
+									+123 xxxxxx
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									outfitter@gmail.com <br>
+									www.outfitter.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
+
+
+
+  <script src="{% static 'cotoure/vendors/jquery/jquery-3.2.1.min.js' %}"></script>
+  <script src="{% static 'cotoure/vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'cotoure/vendors/skrollr.min.js' %}"></script>
+  <script src="{% static 'cotoure/vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'cotoure/vendors/nice-select/jquery.nice-select.min.js' %}"></script>
+  <script src="{% static 'cotoure/vendors/jquery.ajaxchimp.min.js' %}"></script>
+  <script src="{% static 'cotoure/vendors/mail-script.js' %}"></script>
+  <script src="{% static 'cotoure/js/main.js' %}"></script>
+</body>
+</html>
